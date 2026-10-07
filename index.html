@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eating Healthy, Fast — Hoover, AL</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --accent:#0F6B4F;
+  --accent-lt:#4FA883;
+  --ink:#15181C;
+  --muted:#5A626B;
+  --line:#DCD9D2;
+  --paper:#F6F5F1;
+  --card:#FFFFFF;
+  --dark:#14171A;
+}
+html,body{height:100%;overflow:hidden;background:#E7E5E0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;color:var(--ink)}
+body{display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1280px;height:720px;transform-origin:center center;
+  background:var(--paper);box-shadow:0 0 0 1px rgba(0,0,0,.07)}
+
+/* ---------- slide shell ---------- */
+.slide{position:absolute;inset:0;width:1280px;height:720px;padding:56px 76px 52px;
+  display:none;flex-direction:column;background:var(--paper);color:var(--ink)}
+.slide.active{display:flex;animation:fade .32s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.slide.dark{background:var(--dark);color:#F2F1EE}
+.slide.dark .cap,.slide.dark .sub{color:#A9AFB6}
+.slide.dark .mark{color:var(--accent-lt)}
+.slide.dark .rule{background:var(--accent-lt)}
+.slide.dark .foot{color:#7E868E;border-top-color:#2A2E33}
+
+/* ---------- motif: head ---------- */
+.mark{display:block;font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--accent)}
+h2{font-size:46px;line-height:1.08;letter-spacing:-.022em;font-weight:700;margin-top:14px;max-width:21ch}
+h2.wide{max-width:30ch}
+.rule{display:block;width:58px;height:3px;background:var(--accent);margin:20px 0 0}
+.sub{font-size:21px;line-height:1.5;color:var(--muted);margin-top:18px;max-width:58ch}
+.cap{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;margin-top:26px}
+.foot{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#8D949B;
+  border-top:1px solid var(--line);padding-top:12px;margin-top:14px}
+.acc{color:var(--accent)}
+
+/* ---------- title ---------- */
+.title h1{font-size:72px;line-height:1.04;letter-spacing:-.03em;font-weight:700;max-width:19ch}
+.title .lede{font-size:24px;line-height:1.5;color:#B3B9BF;margin-top:26px;max-width:46ch}
+
+/* ---------- generic layouts ---------- */
+.split{display:grid;grid-template-columns:1.02fr 1fr;gap:54px;align-items:center}
+.pull{font-size:30px;line-height:1.3;font-weight:650;letter-spacing:-.01em;margin-top:22px}
+
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.gcard{background:var(--card);border:1px solid var(--line);padding:28px 26px 26px;display:flex;flex-direction:column;gap:16px}
+.gcard h3{font-size:22px;letter-spacing:-.01em}
+.gcard p{font-size:18px;line-height:1.45;color:var(--muted)}
+.gauge{display:flex;align-items:center;gap:16px}
+.gnum{font-size:30px;font-weight:700;color:var(--accent);letter-spacing:-.02em}
+.gnum small{display:block;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:4px}
+
+.tiers{display:flex;flex-direction:column;gap:14px}
+.tier{display:grid;grid-template-columns:62px 300px 1fr;gap:26px;align-items:center;
+  background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);padding:20px 26px}
+.tbadge{width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+  font-size:17px;font-weight:700;color:var(--accent);border:2px solid var(--accent)}
+.tier.lead .tbadge{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tier h3{font-size:21px;letter-spacing:-.01em}
+.tier h3 span{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:6px}
+.places{font-size:18px;line-height:1.5}
+.places em{font-style:normal;color:var(--muted);font-size:14px}
+
+.cols4{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.fmt{padding:4px 24px;border-left:1px solid var(--line)}
+.fmt:first-child{border-left:0;padding-left:0}
+.fmt h3{font-size:20px;letter-spacing:-.01em;margin:10px 0 16px}
+.fmt ul{list-style:none}
+.fmt li{font-size:18px;line-height:1.35;padding:8px 0 8px 16px;position:relative;border-bottom:1px solid var(--line)}
+.fmt li:before{content:"";position:absolute;left:0;top:16px;width:7px;height:1.5px;background:var(--accent)}
+.fmt .skip{font-size:15px;line-height:1.4;color:var(--muted);margin-top:14px}
+.fmt .skip b{color:var(--ink)}
+
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{text-align:left;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  padding:0 16px 12px 0;border-bottom:2px solid var(--ink)}
+.tbl td{padding:13px 16px 13px 0;border-bottom:1px solid var(--line);font-size:18px;line-height:1.35;vertical-align:top}
+.tbl td.place{font-weight:700;width:230px}
+.tbl td.place em{display:block;font-style:normal;font-weight:400;font-size:13px;color:var(--muted);margin-top:3px}
+.tbl td.skip{color:var(--muted);width:300px}
+.tbl tr td:nth-child(2){color:var(--ink)}
+
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.chip{background:var(--card);border:1px solid var(--line);padding:14px 18px;font-size:18px;display:flex;gap:12px;align-items:baseline}
+.chip b{color:var(--accent);font-size:13px;letter-spacing:.1em}
+
+.swaps{display:flex;flex-direction:column;gap:0;max-width:900px;margin:0 auto;width:100%}
+.swap{display:grid;grid-template-columns:1fr 54px 1fr;align-items:center;gap:10px;
+  padding:14px 0;border-bottom:1px solid var(--line)}
+.swap .from{font-size:19px;color:var(--muted)}
+.swap .to{font-size:19px;font-weight:650}
+.arw{width:40px;height:12px;justify-self:center}
+
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.day{background:var(--card);border:1px solid var(--line);padding:18px 14px;min-height:210px;display:flex;flex-direction:column}
+.day .d{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.day .n{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-top:14px;line-height:1.2}
+.day .f{font-size:14px;color:var(--muted);margin-top:auto;line-height:1.35}
+.day.lead{border:2px solid var(--accent)}
+.day.lead .tag{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-top:10px}
+
+.rules{background:var(--card);border:1px solid var(--line);padding:34px 40px;max-width:860px;margin:0 auto;width:100%}
+.rules li{list-style:none;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:baseline;
+  padding:15px 0;border-bottom:1px solid var(--line);font-size:21px;line-height:1.35}
+.rules li:last-child{border-bottom:0;padding-bottom:0}
+.rules li i{font-style:normal;font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--accent)}
+.rules li.key{font-size:24px;font-weight:700;color:var(--accent);letter-spacing:-.01em;margin-top:6px}
+
+.traps{max-width:940px;width:100%;margin:0 auto}
+.trap{display:grid;grid-template-columns:34px 1fr;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.trap:last-child{border-bottom:0}
+.trap p{font-size:21px;line-height:1.35}
+.trap p span{color:var(--muted);font-size:17px;display:block;margin-top:3px}
+
+.action{border:2px solid var(--accent-lt);padding:26px 30px;margin-top:30px;max-width:720px}
+.action .cap{color:var(--accent-lt)}
+.action p{font-size:23px;line-height:1.4;margin-top:12px}
+
+/* ---------- chrome ---------- */
+.progress{position:absolute;left:0;top:0;height:3px;width:100%;background:rgba(0,0,0,.08);z-index:20}
+#bar{display:block;height:100%;width:8.33%;background:var(--accent);transition:width .25s ease}
+.nav{position:absolute;right:30px;bottom:22px;display:flex;align-items:center;gap:10px;z-index:20}
+.nav button{width:34px;height:34px;border:1px solid var(--line);background:rgba(255,255,255,.7);
+  color:var(--ink);font-size:15px;cursor:pointer;line-height:1}
+.nav button:hover{border-color:var(--accent);color:var(--accent)}
+.count{font-size:13px;letter-spacing:.14em;color:var(--muted);font-weight:700;margin-left:6px}
+.count b{color:var(--accent)}
+.hint{position:absolute;left:30px;bottom:24px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#9AA1A8;z-index:20}
+.zone{position:absolute;top:0;height:100%;width:22%;z-index:6;cursor:pointer}
+.zl{left:0}.zr{right:0}
+#notes{position:absolute;left:0;right:0;bottom:0;background:#14171A;color:#E7E6E3;padding:24px 76px 26px;
+  display:none;z-index:30;border-top:3px solid var(--accent-lt)}
+#notes.on{display:block}
+#notes .nttl{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-lt);font-weight:700}
+#ntxt{font-size:17px;line-height:1.55;margin-top:10px;max-width:96ch}
+#ntxt b{color:var(--accent-lt)}
+.slide.dark .count{color:#8C9399}
+
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{overflow:visible!important;height:auto!important;background:#fff}
+  body{display:block}
+  #stage{transform:none!important;width:1280px!important;height:auto!important;box-shadow:none}
+  .progress,.nav,.hint,.zone,#notes{display:none!important}
+  .slide{position:relative!important;display:flex!important;width:1280px;height:720px;
+         page-break-after:always;break-after:page;animation:none!important}
+  .slide,.slide.dark{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- 01 TITLE -->
+<section class="slide dark title active" data-notes="Frame the deck in one line: this is a personal, local operating system for eating well on busy days in Hoover. It is not a diet. It is a set of pre-made decisions tied to real places within a few minutes of home and work. <b>Discuss:</b> Which days of my week actually break down? Am I eating out from convenience or from hunger timing? What would success look like in 30 days?">
+  <span class="mark">EATING WELL · OPERATING SYSTEM</span>
+  <div class="body">
+    <h1>Eating Healthy,<br>Fast</h1>
+    <span class="rule"></span>
+    <p class="lede">A Hoover plan for identifying and choosing quick, healthy options — before hunger does the choosing.</p>
+  </div>
+  <div class="foot">Hoover, AL · Birmingham metro · Personal use</div>
+</section>
+
+<!-- 02 PROBLEM -->
+<section class="slide" data-notes="The failure point is not a knowledge gap — it is a decision made at 12:40 while hungry, rushed, and already in the car. Willpower is the wrong lever. Pre-deciding the order is the right one. <b>Discuss:</b> What time of day do my worst food decisions happen? Who or what usually picks the restaurant? Could I remove the decision entirely with one saved order?">
+  <span class="mark">02</span>
+  <h2>You don&rsquo;t fail from knowledge. You fail at 12:40, hungry.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <div class="split">
+      <div>
+        <p class="sub">The information was never the problem. The <em style="font-style:normal;color:var(--ink);font-weight:650">decision moment</em> is: rushed, hungry, whatever is closest wins.</p>
+        <p class="pull">Fix the decision moment,<br>not your willpower.</p>
+      </div>
+      <div>
+        <svg viewBox="0 0 560 400" width="100%" height="368" role="img" aria-label="A path splitting into two choices at the moment of hunger">
+          <line x1="280" y1="378" x2="280" y2="250" stroke="#15181C" stroke-width="2.5"/>
+          <path d="M280 250 C 280 172, 190 158, 130 112" fill="none" stroke="#B9B6AE" stroke-width="2.5" stroke-dasharray="7 7"/>
+          <path d="M280 250 C 280 172, 370 158, 430 112" fill="none" stroke="#0F6B4F" stroke-width="3.5"/>
+          <circle cx="280" cy="250" r="7.5" fill="#0F6B4F"/>
+          <text x="300" y="256" font-size="15" fill="#5A626B" font-weight="700" letter-spacing="1.4">HUNGER · 12:40</text>
+          <text x="130" y="84" font-size="18" fill="#5A626B" text-anchor="middle" font-weight="650">Whatever&rsquo;s closest</text>
+          <text x="130" y="106" font-size="13.5" fill="#8D949B" text-anchor="middle">fried · combo · sweet tea</text>
+          <text x="430" y="84" font-size="18" fill="#0F6B4F" text-anchor="middle" font-weight="700">Your saved default</text>
+          <text x="430" y="106" font-size="13.5" fill="#5A626B" text-anchor="middle">bowl · protein · veg</text>
+          <text x="280" y="398" font-size="13.5" fill="#8D949B" text-anchor="middle">same hunger, two outcomes</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="foot">Eating Healthy, Fast · Hoover, AL</div>
+</section>
+
+<!-- 03 THREE FILTERS -->
+<section class="slide" data-notes="Three filters you can run in half a minute at any counter, menu board, or app. Protein first sets satiety. Produce present sets volume and fiber. The third filter catches the places calories hide: drinks, the fryer, and the sauce. <b>Discuss:</b> Which of the three filters do I break most often? Can I name the protein in my usual order? Where is my biggest hidden-calorie leak — the cup, the fryer, or the dressing?">
+  <span class="mark">03</span>
+  <h2 class="wide">Three filters. Thirty seconds. Every menu.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <div class="cols3">
+      <div class="gcard">
+        <div class="gauge">
+          <svg width="96" height="96" viewBox="0 0 96 96"><circle cx="48" cy="48" r="40" fill="none" stroke="#E2E0DA" stroke-width="9"/><circle cx="48" cy="48" r="40" fill="none" stroke="#0F6B4F" stroke-width="9" stroke-dasharray="176 251" stroke-linecap="butt" transform="rotate(-90 48 48)"/></svg>
+          <span class="gnum">25&ndash;40g<small>per meal</small></span>
+        </div>
+        <h3>Protein first</h3>
+        <p>If you can&rsquo;t name the protein, it isn&rsquo;t a meal.</p>
+      </div>
+      <div class="gcard">
+        <div class="gauge">
+          <svg width="96" height="96" viewBox="0 0 96 96"><circle cx="48" cy="48" r="40" fill="none" stroke="#E2E0DA" stroke-width="9"/><circle cx="48" cy="48" r="40" fill="none" stroke="#0F6B4F" stroke-width="9" stroke-dasharray="126 251" transform="rotate(-90 48 48)"/></svg>
+          <span class="gnum">&frac12; plate<small>vegetables / fruit</small></span>
+        </div>
+        <h3>Produce present</h3>
+        <p>Visible vegetables or fruit — not a garnish.</p>
+      </div>
+      <div class="gcard">
+        <div class="gauge">
+          <svg width="96" height="96" viewBox="0 0 96 96"><circle cx="48" cy="48" r="40" fill="none" stroke="#E2E0DA" stroke-width="9"/><circle cx="48" cy="48" r="40" fill="none" stroke="#0F6B4F" stroke-width="9" stroke-dasharray="26 57.7" transform="rotate(-90 48 48)"/></svg>
+          <span class="gnum">3 leaks<small>liquid · fryer · sauce</small></span>
+        </div>
+        <h3>Watch the extras</h3>
+        <p>The drink, the fryer and the sauce hide the calories.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">Apply in order · stop when the meal passes all three</div>
+</section>
+
+<!-- 04 TIERS -->
+<section class="slide" data-notes="Map the local supply before the next hungry moment. Tier 1 is the workhorse: you control every component. Tier 2 is a sit-down-quality grilled plate. Tier 3 removes ordering entirely — pre-portioned meals and a grocery run. Addresses are here so the plan is navigable, not theoretical. <b>Discuss:</b> Which tier is closest to my daily route? Which two places become my defaults? Is there a tier I have never actually used?">
+  <span class="mark">04</span>
+  <h2 class="wide">Hoover already has three tiers of fast + healthy.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <div class="tiers">
+      <div class="tier lead">
+        <span class="tbadge">T1</span>
+        <h3>Build-a-bowl<span>you control every component</span></h3>
+        <div class="places">CAVA <em>3076 John Hawkins Pkwy</em> · Chipotle <em>2 locations — e.g. 1759 Montgomery Hwy</em> · CHOP N FRESH</div>
+      </div>
+      <div class="tier">
+        <span class="tbadge">T2</span>
+        <h3>Mediterranean &amp; grill plates<span>grilled protein + real sides</span></h3>
+        <div class="places">Taziki&rsquo;s <em>4745 Chace Cir</em> · Newk&rsquo;s Eatery <em>3780 Riverchase Village</em> · Urban Cookhouse</div>
+      </div>
+      <div class="tier">
+        <span class="tbadge">T3</span>
+        <h3>Grab-and-go &amp; meal prep<span>no ordering required</span></h3>
+        <div class="places">Clean Eatz <em>1021 Brocks Gap Pkwy Ste 141</em> · Publix Hoover Place <em>1584 Montgomery Hwy</em></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">Tier 1 is the default · Tier 3 is the backup for the worst days</div>
+</section>
+
+<!-- 05 ORDER SCRIPT -->
+<section class="slide" data-notes="One script per format, so the words are ready before you reach the counter. Double protein is the single highest-leverage line in the whole deck. Dressing on the side is the second. Say the script the same way every time until it is automatic. <b>Discuss:</b> Which format do I order most? What is the exact sentence I will say at the bowl bar? What am I willing to always skip?">
+  <span class="mark">05</span>
+  <h2 class="wide">One script per format — say it before you&rsquo;re hungry.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <div class="cols4">
+      <div class="fmt">
+        <span class="cap">Format 01</span>
+        <h3>Bowl bar</h3>
+        <ul><li>Grain or greens base</li><li>Double the protein</li><li>Load the vegetables</li><li>Salsa or light dressing</li></ul>
+        <p class="skip"><b>Skip:</b> cheese, sour cream, chips, tortilla</p>
+      </div>
+      <div class="fmt">
+        <span class="cap">Format 02</span>
+        <h3>Salad</h3>
+        <ul><li>Grilled protein, never fried</li><li>Vinaigrette on the side</li><li>Add beans or avocado</li><li>Unsweet tea or water</li></ul>
+        <p class="skip"><b>Skip:</b> creamy dressing, croutons, candied toppings</p>
+      </div>
+      <div class="fmt">
+        <span class="cap">Format 03</span>
+        <h3>Grill plate</h3>
+        <ul><li>Grilled chicken or fish</li><li>Two non-starchy sides</li><li>Sauce on the side</li><li>Water first</li></ul>
+        <p class="skip"><b>Skip:</b> fries, bread, creamy sides</p>
+      </div>
+      <div class="fmt">
+        <span class="cap">Format 04</span>
+        <h3>Meal-prep pickup</h3>
+        <ul><li>Pre-portioned and labeled</li><li>Grab 3&ndash;5 at once</li><li>Confirm 25g+ protein</li><li>Store at eye level</li></ul>
+        <p class="skip"><b>Skip:</b> deciding again later this week</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">Eating Healthy, Fast · Hoover, AL</div>
+</section>
+
+<!-- 06 CHEAT SHEET -->
+<section class="slide" data-notes="This is the page to screenshot. Place, order this, skip this — no interpretation required at the counter. Note the pattern across every row: grilled protein doubled, vegetables added, the creamy or fried extra removed. <b>Discuss:</b> Which row is already my habit? Which row has the biggest gap between what I order now and what is written here? Should any place be removed from my list entirely?">
+  <span class="mark">06</span>
+  <h2 class="wide">Default orders, already decided.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <table class="tbl">
+      <tr><th>Place</th><th>Order this</th><th class="skip">Skip this</th></tr>
+      <tr><td class="place">CAVA<em>3076 John Hawkins Pkwy</em></td><td>Greens + grains base, double grilled chicken, veg, hummus, lemon-herb dressing</td><td class="skip">Pita chips, creamy dressings, extra feta</td></tr>
+      <tr><td class="place">Chipotle<em>1759 Montgomery Hwy</em></td><td>Burrito bowl: brown rice, chicken or steak, fajita veg, black beans, salsa</td><td class="skip">Tortilla, cheese, sour cream, chips</td></tr>
+      <tr><td class="place">Taziki&rsquo;s<em>4745 Chace Cir</em></td><td>Grilled chicken or salmon plate + two vegetable sides</td><td class="skip">Fries, bread, creamy sides</td></tr>
+      <tr><td class="place">Newk&rsquo;s Eatery<em>3780 Riverchase Village</em></td><td>Grilled chicken or salmon salad, vinaigrette on the side</td><td class="skip">Creamy dressing, croutons, sweet tea</td></tr>
+      <tr><td class="place">Clean Eatz<em>1021 Brocks Gap Pkwy</em></td><td>Three to five pre-portioned meals, 25g+ protein each</td><td class="skip">Checkout-counter snacks and desserts</td></tr>
+      <tr><td class="place">Publix Hoover Place<em>1584 Montgomery Hwy</em></td><td>Rotisserie chicken + pre-cut veg + microwave rice cup</td><td class="skip">Fried deli sides, bakery aisle, subs</td></tr>
+    </table>
+  </div>
+  <div class="foot">Screenshot this slide · it is the whole plan in one page</div>
+</section>
+
+<!-- 07 PUBLIX RUN -->
+<section class="slide" data-notes="The grocery version of fast food. Seven items, no cooking, assembles into three or four meals: chicken plus rice cup plus veg, or yogurt plus fruit, or hummus plus carrots. This is the answer when every restaurant feels like a trap. <b>Discoss:</b> <b>Discuss:</b> Which night of the week is my Publix run? What is the one item I always forget? Can I keep this list saved in my phone notes?">
+  <span class="mark">07</span>
+  <h2 class="wide">The five-minute Publix run beats any drive-thru.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <div class="split" style="grid-template-columns:0.78fr 1fr">
+      <div>
+        <svg viewBox="0 0 300 260" width="100%" height="250" role="img" aria-label="Shopping basket holding seven items">
+          <path d="M100 66 C100 24, 200 24, 200 66" fill="none" stroke="#0F6B4F" stroke-width="4"/>
+          <path d="M34 70 H266 L238 228 H62 Z" fill="#FFFFFF" stroke="#15181C" stroke-width="2.5"/>
+          <line x1="90" y1="70" x2="100" y2="228" stroke="#DCD9D2" stroke-width="2"/>
+          <line x1="150" y1="70" x2="150" y2="228" stroke="#DCD9D2" stroke-width="2"/>
+          <line x1="210" y1="70" x2="200" y2="228" stroke="#DCD9D2" stroke-width="2"/>
+          <text x="150" y="172" font-size="62" font-weight="700" fill="#0F6B4F" text-anchor="middle" letter-spacing="-2">7</text>
+          <text x="150" y="200" font-size="13.5" font-weight="700" fill="#5A626B" text-anchor="middle" letter-spacing="2.4">ITEMS · 5 MIN</text>
+        </svg>
+      </div>
+      <div class="chips">
+        <div class="chip"><b>01</b>Rotisserie chicken</div>
+        <div class="chip"><b>02</b>Pre-cut veg tray</div>
+        <div class="chip"><b>03</b>Brown rice or quinoa cups</div>
+        <div class="chip"><b>04</b>Plain Greek yogurt</div>
+        <div class="chip"><b>05</b>Hummus</div>
+        <div class="chip"><b>06</b>Baby carrots</div>
+        <div class="chip"><b>07</b>Sparkling water</div>
+        <div class="chip" style="border-style:dashed;color:#5A626B"><b>=</b>3&ndash;4 assembled meals</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">No cooking required · assembly only</div>
+</section>
+
+<!-- 08 SWAPS -->
+<section class="slide" data-notes="Six swaps carry most of the result. Nothing is eliminated — the format is simply exchanged. Fried to grilled and the drink swap are usually the two largest single changes a person can make without changing where they eat. <b>Discuss:</b> Which two swaps would I actually keep for a month? Which one feels hardest, and why? What is my default drink today?">
+  <span class="mark">08</span>
+  <h2 class="wide">Six swaps do most of the work.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <div class="swaps">
+      <div class="swap"><span class="from">Fried</span><svg class="arw" viewBox="0 0 40 12"><path d="M0 6 H30" stroke="#0F6B4F" stroke-width="2"/><path d="M26 2 L31 6 L26 10" fill="none" stroke="#0F6B4F" stroke-width="2"/></svg><span class="to">Grilled</span></div>
+      <div class="swap"><span class="from">Mayo</span><svg class="arw" viewBox="0 0 40 12"><path d="M0 6 H30" stroke="#0F6B4F" stroke-width="2"/><path d="M26 2 L31 6 L26 10" fill="none" stroke="#0F6B4F" stroke-width="2"/></svg><span class="to">Mustard or hot sauce</span></div>
+      <div class="swap"><span class="from">White rice</span><svg class="arw" viewBox="0 0 40 12"><path d="M0 6 H30" stroke="#0F6B4F" stroke-width="2"/><path d="M26 2 L31 6 L26 10" fill="none" stroke="#0F6B4F" stroke-width="2"/></svg><span class="to">Brown rice or double veg</span></div>
+      <div class="swap"><span class="from">Soda or sweet tea</span><svg class="arw" viewBox="0 0 40 12"><path d="M0 6 H30" stroke="#0F6B4F" stroke-width="2"/><path d="M26 2 L31 6 L26 10" fill="none" stroke="#0F6B4F" stroke-width="2"/></svg><span class="to">Sparkling water or unsweet tea</span></div>
+      <div class="swap"><span class="from">Chips</span><svg class="arw" viewBox="0 0 40 12"><path d="M0 6 H30" stroke="#0F6B4F" stroke-width="2"/><path d="M26 2 L31 6 L26 10" fill="none" stroke="#0F6B4F" stroke-width="2"/></svg><span class="to">Side salad or fruit</span></div>
+      <div class="swap"><span class="from">Creamy dressing</span><svg class="arw" viewBox="0 0 40 12"><path d="M0 6 H30" stroke="#0F6B4F" stroke-width="2"/><path d="M26 2 L31 6 L26 10" fill="none" stroke="#0F6B4F" stroke-width="2"/></svg><span class="to">Vinaigrette, on the side</span></div>
+    </div>
+  </div>
+  <div class="foot">Same restaurant · same visit · different format</div>
+</session>
+</section>
+
+<!-- 09 WEEK -->
+<section class="slide" data-notes="A week that requires zero improvisation. Monday and Tuesday are Tier 1 bowls, midweek is a grill plate, Thursday is pickup, Friday is a salad, Saturday is groceries, Sunday resets with leftovers. The point is rotation, not novelty. <b>Discuss:</b> Which day is most likely to fall apart? Should Thursday pickup move earlier in the week? What is my realistic Sunday cook-once meal?">
+  <span class="mark">09</span>
+  <h2 class="wide">Seven days, already decided.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <div class="week">
+      <div class="day lead"><span class="d">Mon</span><span class="n">CAVA</span><span class="tag">Start here</span><span class="f">Build-a-bowl</span></div>
+      <div class="day"><span class="d">Tue</span><span class="n">Chipotle</span><span class="f">Burrito bowl</span></div>
+      <div class="day"><span class="d">Wed</span><span class="n">Taziki&rsquo;s</span><span class="f">Grill plate</span></div>
+      <div class="day"><span class="d">Thu</span><span class="n">Clean Eatz</span><span class="f">Meal-prep pickup</span></div>
+      <div class="day"><span class="d">Fri</span><span class="n">Newk&rsquo;s</span><span class="f">Salad, dressing aside</span></div>
+      <div class="day"><span class="d">Sat</span><span class="n">Publix</span><span class="f">Rotisserie + veg</span></div>
+      <div class="day"><span class="d">Sun</span><span class="n">Home</span><span class="f">Cook once / leftovers</span></div>
+    </div>
+  </div>
+  <div class="foot">Rotation, not novelty · repeat next week</div>
+</section>
+
+<!-- 10 GUARDRAILS -->
+<section class="slide" data-notes="Guardrails handle portion creep, which is how good orders quietly become bad ones. Regular not large, sauce on the side, water first, protein before carbs. The last line is the one that protects consistency: a single off-plan meal is not a failure. <b>Discuss:</b> Which guardrail would catch my most common slip? How do I handle a work lunch I did not choose? What is my honest off-plan frequency?">
+  <span class="mark">10</span>
+  <h2 class="wide">Guardrails stop portion creep.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <ul class="rules">
+      <li><i>R1</i><span>Order the regular, not the large.</span></li>
+      <li><i>R2</i><span>Sauce and dressing always on the side.</span></li>
+      <li><i>R3</i><span>Water first — before the food arrives.</span></li>
+      <li><i>R4</i><span>Eat the protein before the carbs.</span></li>
+      <li class="key"><i>R5</i><span>One off-plan meal is fine. The plan is the pattern, not a single meal.</span></li>
+    </ul>
+  </div>
+  <div class="foot">Eating Healthy, Fast · Hoover, AL</div>
+</section>
+
+<!-- 11 TRAPS -->
+<section class="slide" data-notes="These five are the common near-misses — choices that feel compliant and are not. The salad trap and the smoothie trap do the most damage because they come with a sense of having already succeeded. Read the description, not the label. <b>Discuss:</b> Which trap have I fallen into most recently? Is my current go-to salad actually a fried-chicken plate? What do I order when everyone else is upgrading the combo?">
+  <span class="mark">11</span>
+  <h2 class="wide">Five things that look healthy and aren&rsquo;t.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <div class="traps">
+      <div class="trap"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M6 22 V2" stroke="#15181C" stroke-width="2"/><path d="M6 3 H20 L17 8.5 L20 14 H6 Z" fill="#0F6B4F"/></svg><p>Salads built on fried chicken and creamy dressing<span>Often heavier than the sandwich you avoided</span></p></div>
+      <div class="trap"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M6 22 V2" stroke="#15181C" stroke-width="2"/><path d="M6 3 H20 L17 8.5 L20 14 H6 Z" fill="#0F6B4F"/></svg><p>Smoothies treated as a meal<span>Liquid, low protein, gone in four minutes</span></p></div>
+      <div class="trap"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M6 22 V2" stroke="#15181C" stroke-width="2"/><path d="M6 3 H20 L17 8.5 L20 14 H6 Z" fill="#0F6B4F"/></svg><p>Sweet tea and lemonade<span>The default drink in this metro — ask for unsweet</span></p></div>
+      <div class="trap"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M6 22 V2" stroke="#15181C" stroke-width="2"/><path d="M6 3 H20 L17 8.5 L20 14 H6 Z" fill="#0F6B4F"/></svg><p>Combo meal upgrades<span>A side and a cup you did not actually want</span></p></div>
+      <div class="trap"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M6 22 V2" stroke="#15181C" stroke-width="2"/><path d="M6 3 H20 L17 8.5 L20 14 H6 Z" fill="#0F6B4F"/></svg><p>Items labeled &ldquo;grilled&rdquo; that arrive glazed in sugar<span>Read the description, not the label</span></p></div>
+    </div>
+  </div>
+  <div class="foot">Trust the description · not the health halo</div>
+</section>
+
+<!-- 12 CLOSE -->
+<section class="slide dark" data-notes="Close on a single action, not a summary. One Tier 1 bowl place, one exact order, saved in the app or phone notes, so the next hungry moment is already resolved. Everything else in the deck is backup. <b>Discuss:</b> Which place becomes my default today? What is the exact order, word for word? Where will I save it so I see it at 12:40?">
+  <span class="mark">12</span>
+  <h2 class="wide">Pick one bowl place. Save one exact order. Done.</h2>
+  <span class="rule"></span>
+  <div class="body">
+    <p class="sub">The plan works because the decision is already made before hunger arrives.</p>
+    <div class="action">
+      <span class="cap">First step — today</span>
+      <p>Default: <strong style="color:#fff">CAVA bowl</strong> — greens + grains, double grilled chicken, vegetables, hummus, lemon-herb dressing on the side.</p>
+    </div>
+  </div>
+  <div class="foot">Save it in the app · reorder in 30 seconds</div>
+</section>
+
+<div class="progress"><span id="bar"></span></div>
+<div class="zone zl" id="zl"></div>
+<div class="zone zr" id="zr"></div>
+<div class="hint">&larr; &rarr; navigate · N notes</div>
+<div class="nav">
+  <button id="prev" aria-label="Previous slide">&larr;</button>
+  <button id="next" aria-label="Next slide">&rarr;</button>
+  <span class="count"><b id="cur">01</b> / <span id="tot">12</span></span>
+</div>
+<div id="notes"><div class="nttl">Speaker notes</div><div id="ntxt"></div></div>
+</div>
+
+<script>
+var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+var i = 0;
+var bar = document.getElementById('bar'), cur = document.getElementById('cur');
+var ntxt = document.getElementById('ntxt'), notes = document.getElementById('notes');
+document.getElementById('tot').textContent = String(slides.length).padStart(2,'0');
+
+function show(n){
+  i = (n + slides.length) % slides.length;
+  for (var k=0;k<slides.length;k++) slides[k].classList.toggle('active', k===i);
+  cur.textContent = String(i+1).padStart(2,'0');
+  bar.style.width = ((i+1)/slides.length*100) + '%';
+  ntxt.innerHTML = slides[i].getAttribute('data-notes') || '';
+}
+function fit(){
+  var s = Math.min(window.innerWidth/1280, window.innerHeight/720);
+  document.getElementById('stage').style.transform = 'scale(' + s + ')';
+}
+document.addEventListener('keydown', function(e){
+  var k = e.key;
+  if (k==='ArrowRight' || k==='PageDown' || k===' ' ){ e.preventDefault(); show(i+1); }
+  else if (k==='ArrowLeft' || k==='PageUp'){ e.preventDefault(); show(i-1); }
+  else if (k==='Home'){ e.preventDefault(); show(0); }
+  else if (k==='End'){ e.preventDefault(); show(slides.length-1); }
+  else if (k==='n' || k==='N'){ notes.classList.toggle('on'); }
+});
+document.getElementById('next').onclick = function(){ show(i+1); };
+document.getElementById('prev').onclick = function(){ show(i-1); };
+document.getElementById('zr').onclick = function(){ show(i+1); };
+document.getElementById('zl').onclick = function(){ show(i-1); };
+window.addEventListener('resize', fit);
+fit(); show(0);
+</script>
+</body>
+</html>
